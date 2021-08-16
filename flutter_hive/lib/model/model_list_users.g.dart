@@ -8,7 +8,7 @@ part of 'model_list_users.dart';
 
 class ModelListUsersAdapter extends TypeAdapter<ModelListUsers> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
   ModelListUsers read(BinaryReader reader) {

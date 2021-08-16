@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hive/model/model_counter.dart';
 import 'package:flutter_hive/model/model_list_users.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart';
@@ -30,5 +31,21 @@ abstract class _ViewmodelHome with Store {
     } catch (e) {
       print(e);
     }
+  }
+
+  addValue() async {
+    Box<dynamic> box = await Hive.openBox('myBox');
+    ModelCounter? modelCounter = (box.get('value') as ModelCounter?);
+
+    if (modelCounter != null) {
+      var currentValue = modelCounter.value;
+      if (currentValue != null) {
+        modelCounter.value = currentValue + 1;
+      }
+    } else {
+      modelCounter = ModelCounter(0);
+    }
+
+    await box.put('value', modelCounter);
   }
 }
